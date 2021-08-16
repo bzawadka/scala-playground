@@ -33,3 +33,23 @@ def fac(n: Int) = {
   for (i <- 1 to n) r = r * i
   r
 }
+
+println("named parameters, default arguments")
+def decorate(str: String,
+             left: String = "[",
+             right: String = "]") =
+  left + str + right
+
+decorate("hello")
+decorate("hello", "<")
+decorate("hello", right = ">")
+
+println("varargs")
+def sum(args: Int*) = {
+  var result = 0
+  for (arg <- args) result += arg
+  result
+}
+
+sum(1, 2, 3)
+sum(1 to 10: _*)
