@@ -1,17 +1,8 @@
-import java.util.concurrent.TimeUnit
 import scala.Console.println
-import scala.concurrent.duration.{Duration, FiniteDuration}
-import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.concurrent.{Await, Future}
 import scala.util.{Failure, Success}
 
-object Futures extends App {
-
-  implicit val executionContext: ExecutionContext = ExecutionContext.global
-
-  def generateMagicNumber(): Int = {
-    Thread.sleep(2000L)
-    23
-  }
+object Futures1 extends App with Futurable {
 
   val numberFuture: Future[Int] = Future {
     generateMagicNumber()
@@ -25,9 +16,7 @@ object Futures extends App {
     }
   }
 
-  val maxWaitTime: FiniteDuration = Duration(5, TimeUnit.SECONDS)
   val magicNumber: Int = Await.result(numberFuture, maxWaitTime)
-
   println(magicNumber)
 }
 
